@@ -26,12 +26,9 @@ class AdminRoleUpdateRequest extends FormRequest
             //
             'id' => 'required|integer',
             'name' => 'required|string',
-            'title' => 'nullable|string',
-            'url' => 'required|string',
-            'path' => 'required|string',
-            'pid' => 'required|integer',
-            'type' => 'required|integer',
+            'symbol' => 'required|string',
             'status' => 'required|integer',
+            'remark' => 'nullable|string',
         ];
     }
 }

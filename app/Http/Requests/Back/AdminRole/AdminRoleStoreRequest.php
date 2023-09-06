@@ -24,13 +24,10 @@ class AdminRoleStoreRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|string|unique:admin_menus',
-            'title' => 'nullable|string',
-            'url' => 'required|string',
-            'path' => 'required|string',
-            'pid' => 'required|integer',
-            'type' => 'required|integer',
+            'name' => 'required|string|unique:admin_roles',
+            'symbol' => 'required|string',
             'status' => 'required|integer',
+            'remark' => 'nullable|string',
         ];
     }
 }

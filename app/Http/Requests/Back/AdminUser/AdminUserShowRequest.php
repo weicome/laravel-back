@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Back\AdminMenu;
+namespace App\Http\Requests\Back\AdminUser;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminMenuUpdateRequest extends FormRequest
+class AdminUserShowRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,6 @@ class AdminMenuUpdateRequest extends FormRequest
         return [
             //
             'id' => 'required|integer',
-            'name' => 'required|string',
-            'title' => 'nullable|string',
-            'url' => 'required|string',
-            'path' => 'required|string',
-            'pid' => 'required|integer',
-            'type' => 'required|integer',
-            'status' => 'required|integer',
         ];
     }
 }

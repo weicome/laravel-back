@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Filters\AdminMenuFilter;
 use App\Http\Requests\Back\AdminMenu\AdminMenuDestroyRequest;
 use App\Http\Requests\Back\AdminMenu\AdminMenuIndexRequest;
-use App\Http\Requests\Back\AdminMenu\AdminRoleShowRequest;
-use App\Http\Requests\Back\AdminMenu\AdminRoleStoreRequest;
-use App\Http\Requests\Back\AdminMenu\AdminRoleUpdateRequest;
+use App\Http\Requests\Back\AdminMenu\AdminMenuShowRequest;
+use App\Http\Requests\Back\AdminMenu\AdminMenuStoreRequest;
+use App\Http\Requests\Back\AdminMenu\AdminMenuUpdateRequest;
 use App\Http\Resources\Back\AdminMenuResource;
 use App\Models\AdminMenu;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +32,7 @@ class AdminMenuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AdminRoleStoreRequest $request): JsonResponse|JsonResource
+    public function store(AdminMenuStoreRequest $request): JsonResponse|JsonResource
     {
         //
         $validated = $request->validated();
@@ -43,7 +43,7 @@ class AdminMenuController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AdminRoleShowRequest $request): JsonResponse|JsonResource
+    public function show(AdminMenuShowRequest $request): JsonResponse|JsonResource
     {
         //
         $result = AdminMenu::query()->findOrFail($request->id);
@@ -53,7 +53,7 @@ class AdminMenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AdminRoleUpdateRequest $request): JsonResponse|JsonResource
+    public function update(AdminMenuUpdateRequest $request): JsonResponse|JsonResource
     {
         //
         $result = AdminMenu::query()->findOrFail($request->id);
