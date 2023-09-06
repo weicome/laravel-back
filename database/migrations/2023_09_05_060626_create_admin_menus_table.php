@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('admin_menus', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('名称');
+            $table->string('title')->default('')->comment('标题');
             $table->string('url')->default('')->comment('地址');
             $table->string('path')->default('')->comment('路径');
             $table->integer('pid')->default(0)->comment('上级id');

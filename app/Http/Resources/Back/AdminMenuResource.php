@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdminMenuResource extends JsonResource
 {
+
+    public static $wrap = 'list';
     /**
      * Transform the resource into an array.
      *

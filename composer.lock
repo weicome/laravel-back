@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1dc2f7602643678c670399145ee7fd00",
+    "content-hash": "3ef35e5b347296ca5e26d2b085d63d86",
     "packages": [
         {
             "name": "brick/math",
@@ -1096,6 +1096,67 @@
                 }
             ],
             "time": "2021-10-07T12:57:01+00:00"
+        },
+        {
+            "name": "jiannei/laravel-response",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jiannei/laravel-response.git",
+                "reference": "eeafc6a862b95761bbfbce385460865576775b81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jiannei/laravel-response/zipball/eeafc6a862b95761bbfbce385460865576775b81",
+                "reference": "eeafc6a862b95761bbfbce385460865576775b81",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": "^7.2.5|^8.0"
+            },
+            "require-dev": {
+                "jiannei/laravel-enum": "^3.0",
+                "orchestra/testbench": "^7.0",
+                "phpunit/phpunit": "^9.5.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jiannei\\Response\\Laravel\\Providers\\LaravelServiceProvider"
+                    ],
+                    "aliases": {
+                        "Response": "Jiannei\\Response\\Laravel\\Support\\Facades\\Response"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jiannei\\Response\\Laravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jiannei",
+                    "email": "longjian.huang@foxmail.com"
+                }
+            ],
+            "description": "Laravel api response data format.",
+            "support": {
+                "issues": "https://github.com/jiannei/laravel-response/issues",
+                "source": "https://github.com/jiannei/laravel-response/tree/v5.0.0"
+            },
+            "time": "2022-12-29T08:01:52+00:00"
         },
         {
             "name": "laravel/framework",
