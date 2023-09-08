@@ -3,6 +3,17 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\AdminRoleFilter;
+use App\Http\Requests\Back\AdminRole\AdminRoleDestroyRequest;
+use App\Http\Requests\Back\AdminRole\AdminRoleIndexRequest;
+use App\Http\Requests\Back\AdminRole\AdminRoleShowRequest;
+use App\Http\Requests\Back\AdminRole\AdminRoleStoreRequest;
+use App\Http\Requests\Back\AdminRole\AdminRoleUpdateRequest;
+use App\Http\Resources\Back\AdminRoleResource;
+use App\Models\AdminRole;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Jiannei\Response\Laravel\Support\Facades\Response;
 
 class AdminRoleController extends Controller
 {
@@ -10,11 +21,11 @@ class AdminRoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(AdminMenuIndexRequest $request, AdminMenuFilter $filter): JsonResponse|JsonResource
+    public function index(AdminRoleIndexRequest $request, AdminRoleFilter $filter): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::filter($filter)->get();
-        return Response::success(AdminMenuResource::collection($result));
+        $result = AdminRole::filter($filter)->get();
+        return Response::success(AdminRoleResource::collection($result));
     }
 
     /**
@@ -24,8 +35,8 @@ class AdminRoleController extends Controller
     {
         //
         $validated = $request->validated();
-        $result = AdminMenu::create($validated);
-        return $result ? Response::ok() : Response::fail();
+        $model = AdminRole::create($validated);
+        return $model?->menus()->sync($validated['menus'] ?? []) ? Response::ok('ok') : Response::fail('no');
     }
 
     /**
@@ -34,8 +45,8 @@ class AdminRoleController extends Controller
     public function show(AdminRoleShowRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::query()->findOrFail($request->id);
-        return Response::success(AdminMenuResource::collection($result));
+        $model = AdminRole::query()->findOrFail($request->id);
+        return Response::success(new AdminRoleResource($model));
     }
 
     /**
@@ -44,17 +55,20 @@ class AdminRoleController extends Controller
     public function update(AdminRoleUpdateRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::query()->findOrFail($request->id);
-        return $result->save($request->validated()) ? Response::ok() : Response::fail();
+        $validated = $request->validated();
+        $model = AdminRole::query()->findOrFail($request->id);
+        return $model->save($validated) && $model->menus()->sync($validated['menus'] ?? [])
+            ? Response::ok('ok') : Response::fail('no');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AdminMenuDestroyRequest $request): JsonResponse|JsonResource
+    public function destroy(AdminRoleDestroyRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::destroy($request->id);
-        return $result ? Response::ok() : Response::fail();
+        $model = AdminRole::query()->findOrFail($request->id);
+        $model->menus()->detach();
+        return $model->delete() ? Response::ok() : Response::fail();
     }
 }

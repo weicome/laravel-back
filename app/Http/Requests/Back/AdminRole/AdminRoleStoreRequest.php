@@ -28,6 +28,7 @@ class AdminRoleStoreRequest extends FormRequest
             'symbol' => 'required|string',
             'status' => 'required|integer',
             'remark' => 'nullable|string',
+            'menus'  => 'nullable|array',
         ];
     }
 }

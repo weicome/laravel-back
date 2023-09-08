@@ -26,8 +26,9 @@ class AdminUserStoreRequest extends FormRequest
             //
             'username' => 'required|string|max:20',
             'account'  => 'required|string|min:4,max:64|unique:admin_users',
-            'password'  => 'required|string|min:6,max:64',
+            'password'  => 'nullable|string|min:6,max:64',
             'status'   => 'required|integer',
+            'role'     => 'nullable|integer',
         ];
     }
 }

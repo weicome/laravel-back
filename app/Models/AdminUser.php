@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Sanctum\HasApiTokens;
 
-class AdminUser extends Model
+class AdminUser extends BaseModel
 {
-    use HasApiTokens, HasFactory;
+    use HasApiTokens;
+
+    protected $fillable = ['id','username','account','password','status','ip_address','created_at','updated_at'];
 
     public function role(): BelongsToMany
     {

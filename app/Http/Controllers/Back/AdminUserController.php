@@ -4,7 +4,16 @@ namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\AdminUserFilter;
+use App\Http\Requests\Back\AdminUser\AdminUserDestroyRequest;
 use App\Http\Requests\Back\AdminUser\AdminUserIndexRequest;
+use App\Http\Requests\Back\AdminUser\AdminUserShowRequest;
+use App\Http\Requests\Back\AdminUser\AdminUserStoreRequest;
+use App\Http\Requests\Back\AdminUser\AdminUserUpdateRequest;
+use App\Http\Resources\Back\AdminUserResource;
+use App\Models\AdminUser;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Jiannei\Response\Laravel\Support\Facades\Response;
 
 class AdminUserController extends Controller
 {
@@ -15,8 +24,8 @@ class AdminUserController extends Controller
     public function index(AdminUserIndexRequest $request, AdminUserFilter $filter): JsonResponse|JsonResource
     {
         //
-        $result = AdminUser::filter($filter)->get();
-        return Response::success(AdminUserResource::collection($result));
+        $model = AdminUser::filter($filter)->get();
+        return Response::success(AdminUserResource::collection($model));
     }
 
     /**
@@ -26,8 +35,8 @@ class AdminUserController extends Controller
     {
         //
         $validated = $request->validated();
-        $result = AdminUser::create($validated);
-        return $result ? Response::ok() : Response::fail();
+        $model = AdminUser::create($validated);
+        return $model?->role()->sync($validated->role) ? Response::ok('ok') : Response::fail('no');
     }
 
     /**
@@ -36,8 +45,8 @@ class AdminUserController extends Controller
     public function show(AdminUserShowRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminUser::query()->findOrFail($request->id);
-        return Response::success(AdminUserResource::collection($result));
+        $model = AdminUser::query()->findOrFail($request->id);
+        return Response::success(new AdminUserResource($model));
     }
 
     /**
@@ -46,8 +55,10 @@ class AdminUserController extends Controller
     public function update(AdminUserUpdateRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminUser::query()->findOrFail($request->id);
-        return $result->save($request->validated()) ? Response::ok() : Response::fail();
+        $validated = $request->validated();
+        $model = AdminUser::query()->findOrFail($request->id);
+        return $model->save($validated) && $model->role()->sync($validated['role'])
+            ? Response::ok() : Response::fail();
     }
 
     /**
@@ -56,7 +67,8 @@ class AdminUserController extends Controller
     public function destroy(AdminUserDestroyRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminUser::destroy($request->id);
-        return $result ? Response::ok() : Response::fail();
+        $model = AdminUser::query()->findOrFail($request->id);
+        $model->role()->detach();
+        return  $model->delete() ? Response::ok() : Response::fail();
     }
 }

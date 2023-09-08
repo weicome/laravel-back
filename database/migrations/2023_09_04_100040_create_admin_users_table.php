@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('account',64)->default('')->comment('账号');
             $table->string('password',64)->default('')->comment('密码');
             $table->tinyInteger('status')->default(1)->comment('状态');
-            $table->ipAddress()->comment('登录ip地址');
+            $table->ipAddress()->nullable()->comment('登录ip地址');
             $table->timestamps();
             $table->comment('管理员账号表');
         });
