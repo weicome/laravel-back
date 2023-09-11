@@ -40,6 +40,7 @@ Route::prefix('back')->group(function (){
             Route::post('display', 'show')->name('display');
             Route::post('modify', 'update')->name('modify');
             Route::post('delete', 'destroy')->name('delete');
+            Route::post('tree', 'tree')->name('tree');
         });
 
     });

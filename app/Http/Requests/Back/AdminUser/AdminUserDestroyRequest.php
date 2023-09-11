@@ -12,6 +12,9 @@ class AdminUserDestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        if($this->request->get('id') == 1){
+            return false;
+        }
         return true;
     }
 

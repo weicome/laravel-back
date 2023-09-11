@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('pid')->default(0)->comment('上级id');
             $table->tinyInteger('type')->default(0)->comment('类型：0=目录,1=菜单,2=按钮');
             $table->tinyInteger('status')->default(1)->comment('状态');
+            $table->integer('sort')->default(1)->comment('排序');
             $table->timestamps();
             $table->comment('菜单表');
         });

@@ -11,6 +11,7 @@ use App\Http\Requests\Back\AdminMenu\AdminMenuStoreRequest;
 use App\Http\Requests\Back\AdminMenu\AdminMenuUpdateRequest;
 use App\Http\Resources\Back\AdminMenuResource;
 use App\Models\AdminMenu;
+use App\Utils\TreeNode;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Jiannei\Response\Laravel\Support\Facades\Response;
@@ -19,6 +20,16 @@ use Jiannei\Response\Laravel\Support\Facades\Response;
 class AdminMenuController extends Controller
 {
     //
+    /**
+     * Display a listing of the resource.
+     */
+    public function tree(): JsonResponse|JsonResource
+    {
+        //
+        $result = AdminMenu::query()->where('status',1)->orderBy('sort')->get();
+        return Response::success(TreeNode::generateTree($result));
+    }
+
     /**
      * Display a listing of the resource.
      */
