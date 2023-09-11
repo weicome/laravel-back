@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Back;
 
+use App\Models\AdminUserRole;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +21,9 @@ class AdminUserResource extends JsonResource
             'account' => $this->account,
             'status' => $this->status,
             'ip_address' => $this->ip_address,
-            'role' => $this->ip_address,
+            'role' => $this->when($this->role,function (){
+                return $this->role[0]->name;
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
