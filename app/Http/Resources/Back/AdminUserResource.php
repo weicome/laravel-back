@@ -21,8 +21,8 @@ class AdminUserResource extends JsonResource
             'account' => $this->account,
             'status' => $this->status,
             'ip_address' => $this->ip_address,
-            'role' => $this->when($this->role,function (){
-                return $this->role[0]->name;
+            'roles' => $this->when($this->roles,function (){
+                return $this->roles->isNotEmpty() ? $this->roles[0]->name : '';
             }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

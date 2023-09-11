@@ -13,7 +13,7 @@ class AdminUser extends BaseModel
 
     protected $fillable = ['id','username','account','password','status','ip_address','created_at','updated_at'];
 
-    public function role(): BelongsToMany
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(AdminRole::class,AdminUserRole::class,'user_id','role_id');
     }

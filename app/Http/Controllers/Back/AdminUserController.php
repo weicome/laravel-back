@@ -24,7 +24,7 @@ class AdminUserController extends Controller
     public function index(AdminUserIndexRequest $request, AdminUserFilter $filter): JsonResponse|JsonResource
     {
         //
-        $model = AdminUser::filter($filter)->get();
+        $model = AdminUser::filter($filter)->simplePaginate();
         return Response::success(AdminUserResource::collection($model));
     }
 
@@ -36,7 +36,7 @@ class AdminUserController extends Controller
         //
         $validated = $request->validated();
         $model = AdminUser::create($validated);
-        return $model?->role()->sync($validated->role) ? Response::ok('ok') : Response::fail('no');
+        return $model?->roles()->sync($validated['role']) ? Response::ok('ok') : Response::fail('no');
     }
 
     /**
@@ -57,7 +57,7 @@ class AdminUserController extends Controller
         //
         $validated = $request->validated();
         $model = AdminUser::query()->findOrFail($request->id);
-        return $model->save($validated) && $model->role()->sync($validated['role'])
+        return $model->save($validated) && $model->roles()->sync($validated['role'])
             ? Response::ok() : Response::fail();
     }
 
@@ -68,7 +68,7 @@ class AdminUserController extends Controller
     {
         //
         $model = AdminUser::query()->findOrFail($request->id);
-        $model->role()->detach();
+        $model->roles()->detach();
         return  $model->delete() ? Response::ok() : Response::fail();
     }
 }

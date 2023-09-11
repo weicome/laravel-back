@@ -29,7 +29,7 @@ class AdminUserUpdateRequest extends FormRequest
             'account'  => 'required|string|min:4,max:64',
             'password'  => 'nullable|string|min:6,max:64',
             'status'   => 'required|integer',
-            'role'     => 'nullable|integer',
+            'role'     => 'nullable|array',
         ];
     }
 }
