@@ -26,12 +26,14 @@ class AdminMenuUpdateRequest extends FormRequest
             //
             'id' => 'required|integer',
             'name' => 'required|string',
-            'title' => 'nullable|string',
+            'title' => 'required|string',
             'url' => 'required|string',
             'path' => 'required|string',
             'pid' => 'required|integer',
             'type' => 'required|integer',
             'status' => 'required|integer',
+            'icon' => 'nullable|string',
+            'sort' => 'nullable|integer',
         ];
     }
 }

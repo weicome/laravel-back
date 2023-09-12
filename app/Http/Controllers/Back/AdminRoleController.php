@@ -24,8 +24,8 @@ class AdminRoleController extends Controller
     public function index(AdminRoleIndexRequest $request, AdminRoleFilter $filter): JsonResponse|JsonResource
     {
         //
-        $result = AdminRole::filter($filter)->get();
-        return Response::success(AdminRoleResource::collection($result));
+        $model = AdminRole::filter($filter)->simplePaginate();
+        return Response::success(AdminRoleResource::collection($model));
     }
 
     /**

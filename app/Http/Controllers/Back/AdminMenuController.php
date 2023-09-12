@@ -21,12 +21,12 @@ class AdminMenuController extends Controller
 {
     //
     /**
-     * Display a listing of the resource.
+     * Display a tree of the resource.
      */
     public function tree(): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::query()->where('status',1)->orderBy('sort')->get();
+        $result = AdminMenu::query()->select('id','pid','title')->where('status',1)->orderBy('sort')->get();
         return Response::success(TreeNode::generateTree($result));
     }
 
@@ -36,8 +36,8 @@ class AdminMenuController extends Controller
     public function index(AdminMenuIndexRequest $request, AdminMenuFilter $filter): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::filter($filter)->get();
-        return Response::success(AdminMenuResource::collection($result));
+        $model = AdminMenu::filter($filter)->get();
+        return Response::success(TreeNode::generateTree($model));
     }
 
     /**
@@ -47,8 +47,8 @@ class AdminMenuController extends Controller
     {
         //
         $validated = $request->validated();
-        $result = AdminMenu::create($validated);
-        return $result ? Response::ok() : Response::fail();
+        $model = AdminMenu::create($validated);
+        return $model ? Response::ok() : Response::fail();
     }
 
     /**
@@ -57,8 +57,8 @@ class AdminMenuController extends Controller
     public function show(AdminMenuShowRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::query()->findOrFail($request->id);
-        return Response::success(AdminMenuResource::collection($result));
+        $model = AdminMenu::query()->findOrFail($request->id);
+        return Response::success(new AdminMenuResource($model));
     }
 
     /**
@@ -67,8 +67,8 @@ class AdminMenuController extends Controller
     public function update(AdminMenuUpdateRequest $request): JsonResponse|JsonResource
     {
         //
-        $result = AdminMenu::query()->findOrFail($request->id);
-        return $result->save($request->validated()) ? Response::ok() : Response::fail();
+        $model = AdminMenu::query()->findOrFail($request->id);
+        return $model->fill($request->validated())->save() ? Response::ok() : Response::fail();
     }
 
     /**

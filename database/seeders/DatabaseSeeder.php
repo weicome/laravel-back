@@ -14,11 +14,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-         \App\Models\AdminUser::create([
+         $root = \App\Models\AdminUser::create([
              'username' => 'Administrator',
              'account' => 'root',
              'password' => password_hash('123456',PASSWORD_DEFAULT),
              'status' => '1',
          ]);
+         $root->roles()->sync([1]);
     }
 }

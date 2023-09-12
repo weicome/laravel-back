@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->default('')->comment('标题');
             $table->string('url')->default('')->comment('地址');
             $table->string('path')->default('')->comment('路径');
+            $table->string('icon')->default('')->comment('图标');
             $table->integer('pid')->default(0)->comment('上级id');
             $table->tinyInteger('type')->default(0)->comment('类型：0=目录,1=菜单,2=按钮');
             $table->tinyInteger('status')->default(1)->comment('状态');

@@ -25,12 +25,14 @@ class AdminMenuStoreRequest extends FormRequest
         return [
             //
             'name' => 'required|string|unique:admin_menus',
-            'title' => 'nullable|string',
+            'title' => 'required|string',
             'url' => 'required|string',
             'path' => 'required|string',
+            'icon' => 'nullable|string',
             'pid' => 'required|integer',
             'type' => 'required|integer',
             'status' => 'required|integer',
+            'sort' => 'nullable|integer',
         ];
     }
 }

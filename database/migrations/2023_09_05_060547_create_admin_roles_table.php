@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('admin_roles', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('名称');
-            $table->string('symbol')->default('')->comment('符号');
+            $table->string('symbol')->default('')->comment('符号')->unique();
             $table->tinyInteger('status')->default(1)->comment('状态');
             $table->string('remark')->default('')->comment('描述');
             $table->timestamps();
