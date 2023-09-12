@@ -21,5 +21,10 @@ class DatabaseSeeder extends Seeder
              'status' => '1',
          ]);
          $root->roles()->sync([1]);
+
+         $this->call([
+             AdminMenuSeeder::class,
+             AdminRoleSeeder::class,
+         ]);
     }
 }
