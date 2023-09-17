@@ -19,6 +19,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1)->comment('状态');
             $table->ipAddress()->nullable()->comment('登录ip地址');
             $table->timestamps();
+            $table->rememberToken();
             $table->comment('管理员账号表');
         });
     }

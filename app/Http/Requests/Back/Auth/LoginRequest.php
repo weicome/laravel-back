@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Back\AdminUser;
+namespace App\Http\Requests\Back\Auth;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminUserIndexRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $uri = explode('/',$this->route()->uri());
-        return $this->user('admin')->tokenCan(implode(':', array_slice($uri,-3)));
+        return true;
     }
 
     /**
@@ -25,7 +24,8 @@ class AdminUserIndexRequest extends FormRequest
     {
         return [
             //
-
+            'account'  => 'required|string|min:4,max:64',
+            'password'  => 'required|string|min:6,max:64',
         ];
     }
 }

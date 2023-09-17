@@ -15,7 +15,7 @@ class AdminUserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $array =  [
             'id' => $this->id,
             'username' => $this->username,
             'account' => $this->account,
@@ -26,6 +26,9 @@ class AdminUserResource extends JsonResource
             }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+
         ];
+        $this->menus() && $array['menus'] = $this->menus();
+        return $array;
     }
 }
