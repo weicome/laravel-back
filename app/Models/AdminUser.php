@@ -55,11 +55,11 @@ class AdminUser extends Authenticatable
     {
         $menus = [];
         if ($this->isSuperAdmin()) {
-            $menus = app(AdminMenu::class)->where('status', 1)->get()?->toArray();
+            $menus = app(AdminMenu::class)->where('status', 1)->where('type','!=',2)->get()?->toArray();
         } else {
-            $roles = $this->roles()->with('menus')->get();
+            $roles = $this->roles()->get();
             foreach ($roles as $role) {
-                $menus = array_merge($menus, $role->menus->toArray());
+                $menus = array_merge($menus, $role->menus()->where('type','!=',2)->get()?->toArray() ?? []);
             }
         }
         return TreeNode::generateTree($menus);

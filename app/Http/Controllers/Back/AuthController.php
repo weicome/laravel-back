@@ -29,7 +29,7 @@ class AuthController extends Controller
                 'expires_at' => config('sanctum.expiration'),
             ]);
         }
-        return Response::fail();
+        return Response::fail('账号或密码不正确');
     }
 
     public function logout(Request $request): JsonResponse|JsonResource
