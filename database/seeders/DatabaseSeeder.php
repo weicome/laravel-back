@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 
          $root = \App\Models\AdminUser::create([
              'username' => 'Administrator',
-             'account' => 'root',
+             'account' => 'admin',
              'password' => password_hash('123456',PASSWORD_DEFAULT),
              'status' => '1',
          ]);

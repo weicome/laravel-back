@@ -4,5 +4,6 @@ namespace App\Models;
 
 class AdminMenu extends BaseModel
 {
-    protected $fillable = ['id','name','title','url','path','pid','type','status','sort','icon','created_at','updated_at'];
+    protected $fillable = ['id','title','name','path','icon','component','redirect','pid',
+        'route', 'type', 'status','sort','created_at','updated_at'];
 }

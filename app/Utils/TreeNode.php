@@ -27,7 +27,7 @@ class TreeNode
 
         foreach ($nodes as $k => $node){
             $findPath = self::findParentPath($node, $nodes,$k);
-            $sanctum[$k] = $findPath ? $findPath . $node['path'] : $node['path'];
+            $sanctum[$k] = $findPath ? $findPath . $node['route'] : $node['route'];
         }
         return array_values($sanctum);
     }
@@ -38,7 +38,7 @@ class TreeNode
         $parentId = $node['pid'];
         while($parentId != 0 && isset($nodes[$parentId])){
             $parent = $nodes[$parentId];
-            $path = $parent['path'].':'.$path;
+            $path = $parent['route'].':'.$path;
             $parentId = $parent['pid'];
         }
         return $path;
