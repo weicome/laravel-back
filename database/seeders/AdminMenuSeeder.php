@@ -14,6 +14,16 @@ class AdminMenuSeeder extends Seeder
     public function run(): void
     {
         //
+        AdminMenu::create([
+            'name' => 'Home',
+            'title' => '首页',
+            'path' => '/home',
+            'component' => 'home/index',
+            'route' => 'index',
+            'icon' => 'ri:home',
+            'pid' => 0,
+            'type' => 1,
+        ]);
         $admin = AdminMenu::create([
             'name' => 'Admin',
             'title' => '系统管理',
